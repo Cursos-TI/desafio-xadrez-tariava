@@ -1,1 +1,80 @@
+#include <stdio.h>
 
+// Constantes de movimento
+#define MOV_BISPO 5
+#define MOV_TORRE 5
+#define MOV_RAINHA 8
+
+// ------------------ Nível Mestre ------------------
+
+// Função recursiva para movimentação do Bispo (Diagonal - Cima + Direita)
+void moverBispoRec(int passo) {
+    if (passo > MOV_BISPO) return;
+    printf("Bispo - Passo %d: Cima + Direita\n", passo);
+    moverBispoRec(passo + 1); // Chamada recursiva
+}
+
+// Função recursiva para movimentação da Torre (Direita)
+void moverTorreRec(int passo) {
+    if (passo > MOV_TORRE) return;
+    printf("Torre - Passo %d: Direita\n", passo);
+    moverTorreRec(passo + 1);
+}
+
+// Função recursiva para movimentação da Rainha (Esquerda)
+void moverRainhaRec(int passo) {
+    if (passo > MOV_RAINHA) return;
+    printf("Rainha - Passo %d: Esquerda\n", passo);
+    moverRainhaRec(passo + 1);
+}
+
+// ------------------ Nível Aventureiro ------------------
+
+// Movimento em L do Cavalo (2 para baixo e 1 para esquerda)
+void moverCavalo() {
+    printf("\nMovimento do Cavalo em L (Baixo + Esquerda):\n");
+
+    for (int i = 0; i < 2; i++) { // Movimento para baixo
+        printf("Cavalo: Baixo (%d)\n", i + 1);
+        for (int j = 0; j < 1; j++) { // Movimento para esquerda
+            printf("Cavalo: Esquerda (%d)\n", j + 1);
+        }
+    }
+}
+
+// ------------------ Nível Mestre - Cavalo com múltiplas condições ------------------
+
+void moverCavaloAvancado() {
+    printf("\nMovimento Avançado do Cavalo (L invertido):\n");
+
+    for (int i = 0; i < 3; i++) {
+        if (i == 1) continue; // Simula desvio (pular uma casa)
+        for (int j = 0; j < 3; j++) {
+            if (i + j > 3) break; // Limite lógico
+            if ((i == 2 && j == 1) || (i == 1 && j == 2)) {
+                printf("Cavalo: Movimento válido em L (%d, %d)\n", i, j);
+            }
+        }
+    }
+}
+
+// ------------------ Função principal ------------------
+
+int main() {
+    printf("=== Desafio de Xadrez - MateCheck ===\n");
+
+    printf("\n--- Nível Novato: Movimentação das Peças ---\n");
+    moverBispoRec(1);
+    moverTorreRec(1);
+    moverRainhaRec(1);
+
+    printf("\n--- Nível Aventureiro: Movimento do Cavalo ---\n");
+    moverCavalo();
+
+    printf("\n--- Nível Mestre: Movimento Recursivo + Cavalo com Condições ---\n");
+    moverCavaloAvancado();
+
+    printf("\n✅ Desafio concluído com sucesso!\n");
+
+    return 0;
+}
